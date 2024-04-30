@@ -5,10 +5,8 @@ import Articles from './components/Articles';
 import { ALL_ITEMS } from './utils/constants';
 
 const AppLayout = () => {
-  //! Article Manipulation is also done here (on delete & reset)
   const [articles, setArticles] = useState(ALL_ITEMS);
 
-  //! Did all the handling of Active Tab here (Tab Clicks, Back, Forward, Delete, Reset will change the active tab - where setActiveTab is called)
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index) => setActiveTab(index);
@@ -35,7 +33,6 @@ const AppLayout = () => {
 
   return (
     <div className="max-w-lg mx-auto p-4">
-      {/* Display Tabs for screens wider than 600px */}
       <div className="hidden sm:block">
         <Tabs
           allItems={articles}
@@ -46,7 +43,6 @@ const AppLayout = () => {
           onDelete={handleDelete}
         />
       </div>
-      {/* Display all articles for screens narrower than 600px */}
       <div className="sm:flex sm:flex-col sm:items-center">
         {articles.length > 0 ? (
           <div className="sm:hidden">
@@ -59,7 +55,6 @@ const AppLayout = () => {
         ) : (
           <p className="mt-4 sm:hidden">All articles are deleted! Press the Reset button to restore them.</p>
         )}
-        {/* Display selected article for screens wider than 600px */}
         <div className="hidden sm:block">
           {articles.length > 0 ? (
             <Articles article={articles[activeTab]} onDelete={handleDelete} />
