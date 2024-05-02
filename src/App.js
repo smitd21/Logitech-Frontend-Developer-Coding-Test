@@ -31,6 +31,12 @@ const AppLayout = () => {
     setActiveTab(0);
   };
 
+  const showDeletedMessage = () => {
+    return (
+      <p className="mt-4">All articles are deleted! Press the Reset button to restore them.</p>
+    );
+  };
+
   return (
     <div className="max-w-lg mx-auto p-4">
       <div className="hidden sm:block">
@@ -45,23 +51,21 @@ const AppLayout = () => {
       </div>
       <div className="sm:flex sm:flex-col sm:items-center">
         {articles.length > 0 ? (
-          <div className="sm:hidden">
-            {articles.map((article, index) => (
-              <div key={index} className="mb-4">
-                <Articles article={article} onDelete={handleDelete} />
-              </div>
-            ))}
+          <div>
+            <div className="sm:hidden">
+              {articles.map((article, index) => (
+                <div key={index} className="mb-4">
+                  <Articles article={article} onDelete={handleDelete} />
+                </div>
+              ))}
+            </div>
+            <div className="hidden sm:block">
+              <Articles article={articles[activeTab]} onDelete={handleDelete} />
+            </div>
           </div>
         ) : (
-          <p className="mt-4 sm:hidden">All articles are deleted! Press the Reset button to restore them.</p>
+          showDeletedMessage()
         )}
-        <div className="hidden sm:block">
-          {articles.length > 0 ? (
-            <Articles article={articles[activeTab]} onDelete={handleDelete} />
-          ) : (
-            <p>All articles are deleted! Press the Reset button to restore them.</p>
-          )}
-        </div>        
       </div>
       <hr className="mt-6 mb-2 border-t border-gray-300" />
       <button onClick={handleReset} className="border border-gray-300 rounded py-1 px-2 mt-4">Reset</button>
